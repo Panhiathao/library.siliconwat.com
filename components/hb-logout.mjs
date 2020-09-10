@@ -25,4 +25,16 @@ export class HbLogout extends HTMLElement {
 	    .then(() => this.dispatchEvent(new Event("success")))
 	    .catch(error => console.error(error.message))
     }
+    
+    disable() {
+        this.dispatchEvent(new Event("click"))
+        this.button.disabled = true
+    }
+
+    enable() {
+        this.dispatchEvent(new Event("done"))
+        this.button.disabled = false
+    }
 }
+}
+

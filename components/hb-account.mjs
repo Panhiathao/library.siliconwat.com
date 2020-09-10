@@ -14,6 +14,7 @@ export class HbAccount extends HTMLElement{
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
     }
+
 }
 
 export class HbAccountVerify extends HTMLElement{
@@ -21,7 +22,7 @@ export class HbAccountVerify extends HTMLElement{
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
-
+        this.button = this.querySelector("button")
         this.sendEmailVerification = this.sendEmailVerification.bind(this)
     }
 
@@ -41,11 +42,12 @@ export class HbAccountVerify extends HTMLElement{
     }
 
     disable() {
-        this.dispatchEvent(new Event("click"))
+        this.button.disabled = true;
     }
 
     enable() {
         this.dispatchEvent(new Event("done"))
+        this.button.disabled = false;
     }
 }
 
@@ -54,6 +56,28 @@ export class HbAccountUsername extends HTMLElement{
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
+        this.input = this.querySelector("input");
+        this.button = this.querySelector("button")
+        this.newUsername = this.newUsername.bind(this.newUsername)
+    }
+    connectedCallback() {
+        const form = this.querySelector("form")
+        form.addEventListener("submit", this.newUsername)
+    }
+
+    newUsername() {
+        
+    }
+
+    disable() {
+        this.input.disabled = true;
+        this.button.disabled = true;
+    }
+
+    enable() {
+        this.dispatchEvent(new Event("done"))
+        this.input.disabled = false;
+        this.button.disabled = false;
     }
 }
 
@@ -62,6 +86,27 @@ export class HbAccountEmail extends HTMLElement{
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
+        this.newEmail = document.querySelector("input[name=newpassword]")
+        this.newpassword = document.querySelector("input[name=password]")
+        this.button = document.querySelector("button")
+    }
+    
+    connectedCallback() {
+        const form = this.querySelector("form")
+        form.addEventListener("submit")
+    }
+
+    disable() {
+        this.newEmail.disabled = true;
+        this.newpassword.disabled = true;
+        this.button.disabled = true;
+    }
+
+    enable() {
+        this.dispatchEvent(new Event("done"))
+        this.newEmail.disabled = false;
+        this.newpassword.disabled = false;
+        this.button.disabled = false;
     }
 }
 
@@ -70,6 +115,28 @@ export class HbAccountPassword extends HTMLElement{
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
+        this.newEmail = document.querySelector("input[name=newpassword]")
+        this.newpassword = document.querySelector("input[name=password]")
+        this.button = document.querySelector("button")
+    }
+
+    connectedCallback() {
+        const form = this.querySelector("form")
+        form.addEventListener("submit")
+    }
+
+
+    disable() {
+        this.newEmail.disabled = true;
+        this.newpassword.disabled = true;
+        this.button.disabled = true;
+    }
+
+    enable() {
+        this.dispatchEvent(new Event("done"))
+        this.newEmail.disabled = false;
+        this.newpassword.disabled = false;
+        this.button.disabled = false;
     }
 }
 
@@ -78,5 +145,24 @@ export class HbAccountDelete extends HTMLElement{
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
+        this.input = document.querySelector("input");
+        this.button = document.querySelector("button");
+    }
+
+    connectedCallback() {
+        const form = this.querySelector("form")
+        form.addEventListener("submit")
+    }
+
+
+    disable() {
+       this.input.disabled = true;
+       this.button.disabled = true; 
+    }
+
+    enable() {
+        this.dispatchEvent(new Event("done"))
+        this.input.disabled = false;
+        this.button.disabled = false; 
     }
 }
