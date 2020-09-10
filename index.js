@@ -96,7 +96,7 @@ const firebaseConfig = {
   const login = document.querySelector("hb-login")
 
   login.addEventListener("login success", () => {
-    document.querySelector("img").src = "https://giphy.com/gifs/Pkck2unt0XQfc4gs3R/html5";
+    console.log("spinner on");
   })
 
   login.addEventListener("forgot password success", () => {

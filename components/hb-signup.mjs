@@ -1,4 +1,4 @@
-const template = document.createElement("template")
+const template = document.createElement("template");
 template.innerHTML = `
     <style>
         :host {
@@ -11,24 +11,24 @@ export class HbSignup extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: "open"});
-        this.shadowRoot.appendChild(template.content.cloneNode(true))
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-        this.email = this.querySelector("input[name=email]")
-        this.password = this.querySelector("input[name=password]")
-        this.button = this.querySelector("button")
+        this.email = this.querySelector("input[name=email]");
+        this.password = this.querySelector("input[name=password]");
+        this.button = this.querySelector("button");
 
-        this.signUp = this.signUp.bind(this)
+        this.signUp = this.signUp.bind(this);
     }
 
     connectedCallback() {
-        const form = this.querySelector("form")
-        form.addEventListener("submit", this.signUp)
+        const form = this.querySelector("form");
+        form.addEventListener("submit", this.signUp);
     }
 
     signUp(event) {
-        event.preventDefault()
-        this.disable()
-        const p = this.querySelector("p")
+        event.preventDefault();
+        this.disable();
+        const p = this.querySelector("p");
         p.textContent = ""
 
         window.firebase.auth().createUserWithEmailAndPassword(this.email.value, this.password.value)
@@ -39,14 +39,14 @@ export class HbSignup extends HTMLElement {
     }
 
     disable() {
-        this.dispatchEvent(new Event("submit"))
+        this.dispatchEvent(new Event("submit"));
         this.email.disabled = true;
         this.password.disabled = true;
         this.button.disabled = true;
     }
 
     enable() {
-        this.dispatchEvent(new Event("done"))
+        this.dispatchEvent(new Event("done"));
         this.email.disabled = false;
         this.password.disabled = false;
         this.button.disabled = false;
