@@ -85,34 +85,16 @@ const firebaseConfig = {
 
 ///////
 
-  const signup = document.querySelector("hb-signup");
-  signup.addEventListener("submit", () =>{
-    console.log("spinner on...")
-    document.querySelector("img").src = "https://giphy.com/gifs/Pkck2unt0XQfc4gs3R/html5";
-  })
-  signup.addEventListener("success", () => console.log("signed up"))
-  signup.addEventListener("done", () => console.log("spinner off"))
+const signup = document.querySelector("hb-signup");
+signup.addEventListener("submit", () => console.log("spinner on"))
+signup.addEventListener("success", () => console.log("signed up"))
+signup.addEventListener("done", () => console.log("spinner off"))
 
-  const login = document.querySelector("hb-login")
+const login = document.querySelector("hb-login")
+login.addEventListener("success", event => console.log("success:", event.detail.type))
 
-<<<<<<< HEAD
-  login.addEventListener("login success", () => {
-    console.log("spinner on");
-=======
-  login.addEventListener("submit", () => {
-    document.querySelector("img").src = "https://giphy.com/gifs/Pkck2unt0XQfc4gs3R/html5";
-    console.log("iamin")
->>>>>>> a0122929d7e6bbdc63305d0013576bc8526e805d
-  })
+const logout = document.querySelector("hb-logout")
+logout.addEventListener("success", () => console.log("logged out"))
 
-  login.addEventListener("click", () => {
-    document.querySelector("img").src = "https://giphy.com/gifs/Pkck2unt0XQfc4gs3R/html5";
-    console.log("reset email sent")
-  })
-
-
-  const logout = document.querySelector("hb-logout")
-  logout.addEventListener("success", () => console.log("logged out"))
-
-  const accountverify = document.querySelector("hb-account-verify")
-  accountverify.addEventListener("success", () => console.log("verify email sent"))
+const accountverify = document.querySelector("hb-account-verify")
+accountverify.addEventListener("success", () => console.log("verify email sent"))
