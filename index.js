@@ -79,7 +79,6 @@ firebase.auth().onAuthStateChanged(user => {
 
 ///////
 
-<<<<<<< HEAD
 const signup = document.querySelector("hb-signup");
 signup.addEventListener("submit", () => console.log("spinner on"))
 signup.addEventListener("success", () => console.log("signed up"))
@@ -93,24 +92,3 @@ logout.addEventListener("success", () => console.log("logged out"))
 
 const accountverify = document.querySelector("hb-account-verify")
 accountverify.addEventListener("success", () => console.log("verify email sent"))
-=======
-const countdown = document.querySelector("sw-countdown")
-countdown.addEventListener("done", () => console.log("Surprise! You win!"))
-
-const timer = document.querySelector("sw-timer")
-timer.addEventListener("done", () => console.log("Timer done!"))
-
-  const signup = document.querySelector("hb-signup");
-  signup.addEventListener("submit", () => console.log("spinner on"))
-  signup.addEventListener("success", () => console.log("signed up"))
-  signup.addEventListener("done", () => console.log("spinner off"))
-
-  const login = document.querySelector("hb-login")
-  login.addEventListener("success", event => console.log("success:", event.detail.type))
-
-  const logout = document.querySelector("hb-logout")
-  logout.addEventListener("success", () => console.log("logged out"))
-
-  const accountverify = document.querySelector("hb-account-verify")
-  accountverify.addEventListener("success", () => console.log("verify email sent"))
->>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290

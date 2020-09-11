@@ -48,5 +48,4 @@ export class HbLogout extends HTMLElement {
         this.button.disabled = false
     }
 }
-}
 
