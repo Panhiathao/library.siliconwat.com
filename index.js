@@ -1,3 +1,17 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyBEq8K__HeZr75Q7tDyNuMX1wnLGMsIIKU",
+  authDomain: "siliconwat.firebaseapp.com",
+  databaseURL: "https://siliconwat.firebaseio.com",
+  projectId: "siliconwat",
+  storageBucket: "siliconwat.appspot.com",
+  messagingSenderId: "140538393451",
+  appId: "1:140538393451:web:b1f8b5190f78e865a4122e"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+////
+
 import {TpInput} from "./tags/tp-input.mjs"
 customElements.define("tp-input", TpInput, {extends: "input"})
 
@@ -53,29 +67,9 @@ customElements.define("sw-timer", SwTimer)
 import {HbLogout} from "./components/hb-logout.mjs"
 customElements.define("hb-logout", HbLogout)
 
-///////////////
-
-const countdown = document.querySelector("sw-countdown")
-countdown.addEventListener("done", () => console.log("Surprise! You win!"))
-
-const timer = document.querySelector("sw-timer")
-timer.addEventListener("done", () => console.log("Timer done!"))
-
 //////
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBEq8K__HeZr75Q7tDyNuMX1wnLGMsIIKU",
-    authDomain: "siliconwat.firebaseapp.com",
-    databaseURL: "https://siliconwat.firebaseio.com",
-    projectId: "siliconwat",
-    storageBucket: "siliconwat.appspot.com",
-    messagingSenderId: "140538393451",
-    appId: "1:140538393451:web:b1f8b5190f78e865a4122e"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-
-  firebase.auth().onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged(user => {
 	if (user) {
 		console.log(user.uid, user.email)
 	} else {
@@ -85,6 +79,7 @@ const firebaseConfig = {
 
 ///////
 
+<<<<<<< HEAD
 const signup = document.querySelector("hb-signup");
 signup.addEventListener("submit", () => console.log("spinner on"))
 signup.addEventListener("success", () => console.log("signed up"))
@@ -98,3 +93,24 @@ logout.addEventListener("success", () => console.log("logged out"))
 
 const accountverify = document.querySelector("hb-account-verify")
 accountverify.addEventListener("success", () => console.log("verify email sent"))
+=======
+const countdown = document.querySelector("sw-countdown")
+countdown.addEventListener("done", () => console.log("Surprise! You win!"))
+
+const timer = document.querySelector("sw-timer")
+timer.addEventListener("done", () => console.log("Timer done!"))
+
+  const signup = document.querySelector("hb-signup");
+  signup.addEventListener("submit", () => console.log("spinner on"))
+  signup.addEventListener("success", () => console.log("signed up"))
+  signup.addEventListener("done", () => console.log("spinner off"))
+
+  const login = document.querySelector("hb-login")
+  login.addEventListener("success", event => console.log("success:", event.detail.type))
+
+  const logout = document.querySelector("hb-logout")
+  logout.addEventListener("success", () => console.log("logged out"))
+
+  const accountverify = document.querySelector("hb-account-verify")
+  accountverify.addEventListener("success", () => console.log("verify email sent"))
+>>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290

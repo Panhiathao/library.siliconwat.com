@@ -8,7 +8,7 @@ template.innerHTML = `
     <slot></slot>
 `
 
-export class HbAccount extends HTMLElement{
+export class HbAccount extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: "open"});
@@ -17,11 +17,16 @@ export class HbAccount extends HTMLElement{
 
 }
 
-export class HbAccountVerify extends HTMLElement{
+export class HbAccountVerify extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
+<<<<<<< HEAD
+=======
+
+        this.user = null
+>>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
         this.button = this.querySelector("button")
         this.sendEmailVerification = this.sendEmailVerification.bind(this)
     }
@@ -29,29 +34,44 @@ export class HbAccountVerify extends HTMLElement{
     connectedCallback() {
         const form = this.querySelector("form")
         form.addEventListener("submit", this.sendEmailVerification)
+
+        window.firebase.auth().onAuthStateChanged(user => {
+            this.user = user
+            const label = this.querySelector("label")
+            label.textContent = user.email
+        })
     }
 
     sendEmailVerification(event) {
         event.preventDefault()
         this.disable()
 
-        window.firebase.auth().currentUser.sendEmailVerification()
+        this.user.sendEmailVerification()
         .then(() => this.dispatchEvent(new Event("success")))
         .catch(error => console.error(error.message))
-        .finally(this.enable())
+        .finally(() => this.enable())
     }
 
     disable() {
+<<<<<<< HEAD
         this.button.disabled = true;
+=======
+        this.dispatchEvent(new Event("click"))
+        this.button.disabled = true
+>>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
     }
 
     enable() {
         this.dispatchEvent(new Event("done"))
+<<<<<<< HEAD
         this.button.disabled = false;
+=======
+        this.button.disabled = false
+>>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
     }
 }
 
-export class HbAccountUsername extends HTMLElement{
+export class HbAccountUsername extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: "open"});
@@ -81,7 +101,7 @@ export class HbAccountUsername extends HTMLElement{
     }
 }
 
-export class HbAccountEmail extends HTMLElement{
+export class HbAccountEmail extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: "open"});
@@ -110,7 +130,7 @@ export class HbAccountEmail extends HTMLElement{
     }
 }
 
-export class HbAccountPassword extends HTMLElement{
+export class HbAccountPassword extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: "open"});
@@ -140,7 +160,7 @@ export class HbAccountPassword extends HTMLElement{
     }
 }
 
-export class HbAccountDelete extends HTMLElement{
+export class HbAccountDelete extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: "open"});

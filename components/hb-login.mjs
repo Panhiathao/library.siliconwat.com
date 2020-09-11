@@ -19,8 +19,14 @@ export class HbLogin extends HTMLElement {
         this.forgotButton = this.querySelector("button[type=button]");
         this.p = this.querySelector("p");
 
+<<<<<<< HEAD
         this.logIn = this.logIn.bind(this);
         this.forgotPassword = this.forgotPassword.bind(this);
+=======
+        this.auth = window.firebase.auth()
+        this.logIn = this.logIn.bind(this)
+        this.forgotPassword = this.forgotPassword.bind(this)
+>>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
     }
 
     connectedCallback() {
@@ -35,8 +41,8 @@ export class HbLogin extends HTMLElement {
         this.disable();
         this.p.textContent = "";
         
-        window.firebase.auth().signInWithEmailAndPassword(this.email.value, this.password.value)
-	    .then(() => this.dispatchEvent(new Event("login success")))
+        this.auth.signInWithEmailAndPassword(this.email.value, this.password.value)
+	    .then(() => this.dispatchEvent(new CustomEvent("success", {detail: {type: "login"}})))
         .catch(error => this.p.textContent = error.message)
         .finally(() => this.enable())
     }
@@ -46,29 +52,24 @@ export class HbLogin extends HTMLElement {
         this.disable();
         this.p.textContent = "";
 
-        window.firebase.auth().sendPasswordResetEmail(this.email.value)
-        .then(() => this.dispatchEvent(new Event("forgot password success")))
+        this.auth.sendPasswordResetEmail(this.email.value)
+        .then(() => this.dispatchEvent(new CustomEvent("success", {detail: {type: "forgot"}})))
         .catch(error => this.p.textContent = error.message)
         .finally(() => this.enable())
     }
 
     disable() {
-        this.dispatchEvent(new Event("submit", () => { 
-            this.email.disabled = true;
-            this.password.disabled = true;
-            this.submitButton.disabled = true;
-            this.forgotButton.disabled = true;
-            
-        }))
+        this.email.disabled = true;
+        this.password.disabled = true;
+        this.submitButton.disabled = true;
+        this.forgotButton.disabled = true;
     }
 
     enable() {
-        this.dispatchEvent(new Event("done", () => {
-            this.email.disabled = false;
-            this.password.disabled = false;
-            this.submitButton.disabled = false;
-            this.forgotButton.disabled = false;
-        }))
-
+        this.dispatchEvent(new Event("done"))
+        this.email.disabled = false;
+        this.password.disabled = false;
+        this.submitButton.disabled = false;
+        this.forgotButton.disabled = false;
     }
 }
