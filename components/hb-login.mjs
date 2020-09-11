@@ -19,14 +19,9 @@ export class HbLogin extends HTMLElement {
         this.forgotButton = this.querySelector("button[type=button]");
         this.p = this.querySelector("p");
 
-<<<<<<< HEAD
-        this.logIn = this.logIn.bind(this);
-        this.forgotPassword = this.forgotPassword.bind(this);
-=======
         this.auth = window.firebase.auth()
         this.logIn = this.logIn.bind(this)
         this.forgotPassword = this.forgotPassword.bind(this)
->>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
     }
 
     connectedCallback() {

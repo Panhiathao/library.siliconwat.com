@@ -22,11 +22,8 @@ export class HbAccountVerify extends HTMLElement {
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
-<<<<<<< HEAD
-=======
 
         this.user = null
->>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
         this.button = this.querySelector("button")
         this.sendEmailVerification = this.sendEmailVerification.bind(this)
     }
@@ -53,21 +50,12 @@ export class HbAccountVerify extends HTMLElement {
     }
 
     disable() {
-<<<<<<< HEAD
         this.button.disabled = true;
-=======
-        this.dispatchEvent(new Event("click"))
-        this.button.disabled = true
->>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
     }
 
     enable() {
         this.dispatchEvent(new Event("done"))
-<<<<<<< HEAD
         this.button.disabled = false;
-=======
-        this.button.disabled = false
->>>>>>> 0890d830b82baf39d3b98abbdbe31837b8faa290
     }
 }
 
@@ -86,12 +74,12 @@ export class HbAccountUsername extends HTMLElement {
     }
 
     newUsername() {
-        
+        event.preventDefault();
     }
 
     disable() {
         this.input.disabled = true;
-        this.button.disabled = true;
+        this.button.disabled = true; 
     }
 
     enable() {
