@@ -87,8 +87,31 @@ signup.addEventListener("done", () => console.log("spinner off"))
 const login = document.querySelector("hb-login")
 login.addEventListener("success", event => console.log("success:", event.detail.type))
 
+<<<<<<< HEAD
 const logout = document.querySelector("hb-logout")
 logout.addEventListener("success", () => console.log("logged out"))
 
 const accountverify = document.querySelector("hb-account-verify")
 accountverify.addEventListener("success", () => console.log("verify email sent"))
+=======
+  const signup = document.querySelector("hb-signup");
+  signup.addEventListener("submit", () => console.log("spinner on"))
+  signup.addEventListener("success", () => console.log("signed up"))
+  signup.addEventListener("done", () => console.log("spinner off"))
+  signup.addEventListener("user", event => console.log(event.detail.data))
+
+  const login = document.querySelector("hb-login")
+  login.addEventListener("success", event => console.log("success:", event.detail.type))
+
+  const logout = document.querySelector("hb-logout")
+  logout.addEventListener("success", () => console.log("logged out"))
+
+  const accountVerify = document.querySelector("hb-account-verify")
+  accountVerify.addEventListener("success", () => console.log("verify email sent"))
+
+  const accountEmail = document.querySelector("hb-account-email")
+  accountEmail.addEventListener("success", () => console.log("email has been updated"))
+
+  const accountPassword = document.querySelector("hb-account-password")
+  accountPassword.addEventListener("success", () => console.log("password has been updated"))
+>>>>>>> 33734d3d7071d46796a908a5e9cf58e2732d4fc7
