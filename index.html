@@ -91,9 +91,11 @@
         </section>
         <section>
             <hb-avatar>
-                <img src="https://lh3.googleusercontent.com/46rSiA41hKKjTJ19If8WbNXYJ3H5268Y0BLo2Cr5X0aDwKMPdQdFaGfE8r2-Evza_SJf=s85" />
-                <label >Change Photo</label>
-                <input type="file"/>
+                <img width="200" />
+                <label>Change Avatar</label>
+                <input type="file" accept="image/png, image/jpeg, image/jpg, image/gif" />
+                <button>Delete Avatar</button>
+                <p></p>
             </hb-avatar>
         </section>
         <section>
@@ -108,9 +110,11 @@
                 <hb-account-username>
                     <form>
                         <label>Change Username:</label>
-                        <input placeholder="New Username" />
+                        <input name="newusername" placeholder="New Username" />
+                        <input name="password" type="password" placeholder="Current Password" />
                         <button type="submit">Submit</button>
                     </form>
+                    <p></p>
                 </hb-account-username>
                 <hb-account-email>
                     <form>

@@ -98,7 +98,7 @@ accountverify.addEventListener("success", () => console.log("verify email sent")
   signup.addEventListener("submit", () => console.log("spinner on"))
   signup.addEventListener("success", () => console.log("signed up"))
   signup.addEventListener("done", () => console.log("spinner off"))
-  signup.addEventListener("user", event => console.log(event.detail.data))
+  //signup.addEventListener("user", event => console.log(event.detail.data))
 
   const login = document.querySelector("hb-login")
   login.addEventListener("success", event => console.log("success:", event.detail.type))
@@ -114,4 +114,13 @@ accountverify.addEventListener("success", () => console.log("verify email sent")
 
   const accountPassword = document.querySelector("hb-account-password")
   accountPassword.addEventListener("success", () => console.log("password has been updated"))
+<<<<<<< HEAD
 >>>>>>> 33734d3d7071d46796a908a5e9cf58e2732d4fc7
+=======
+
+  const accountUsername = document.querySelector("hb-account-username")
+  accountUsername.addEventListener("success", event => console.log("success:", event.detail.username))
+
+  const avatar = document.querySelector("hb-avatar")
+  avatar.addEventListener("success", event => console.log(event.detail.type, event.detail.url))
+>>>>>>> 7a02e727aa675672bf5697e31b2710f93b6cc878

@@ -12,5 +12,68 @@ export class HbAvatar extends HTMLElement{
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+        this.img = this.querySelector("img")
+        this.input = this.querySelector("input")
+        this.button = this.querySelector("button")
+        this.p = this.querySelector("p")
+
+        this.updateAvatar = this.updateAvatar.bind(this)
+        this.deleteAvatar = this.deleteAvatar.bind(this)
+
+        this.firestorage = window.firebase.storage()
+    }
+
+    connectedCallback() {
+        this.input.addEventListener("change", this.updateAvatar)
+        this.button.addEventListener("click", this.deleteAvatar)
+    }
+
+    updateAvatar(event) {
+        this.disable()
+        this.dispatchEvent(new Event("change"))
+        this.p.textContent = ""
+
+        const file = event.target.files[0]
+        const currentUser = window.firebase.auth().currentUser
+        const storage = this.firestorage.ref(currentUser.uid + "/avatar")
+        const task = storage.put(file)
+    
+        task.on(window.firebase.storage.TaskEvent.STATE_CHANGED, 
+            snapshot => {}, 
+            error => this.p.textContent = error.message,
+            () => task.snapshot.ref.getDownloadURL()
+            .then(url => {
+                this.dispatchEvent(new CustomEvent("success", {detail: {type: "update", url}}))
+                return this.img.src = url
+            })
+            .then(url => window.firebase.firestore().collection("users").doc(currentUser.uid).update({avatarURL: url}))
+            .catch(error => this.p.textContent = error.message)
+            .finally(() => this.enable())
+       )
+    }
+
+    deleteAvatar(event) {
+        this.disable()
+        this.dispatchEvent(new Event("click"))
+        this.p.textContent = ""
+        const currentUser = window.firebase.auth().currentUser
+
+        this.firestorage.ref(currentUser.uid + "/avatar").delete()
+        .then(() => this.img.src = "") // todo: default avatar image
+        .then(() => this.dispatchEvent(new CustomEvent("success", {detail: {type: "delete"}})))
+        .catch(error => this.p.textContent = error.message)
+        .finally(() => this.enable())
+    }
+
+    disable() {
+        this.input.disabled = true
+        this.button.disabled = true
+    }
+
+    enable() {
+        this.dispatchEvent(new Event("done"))
+        this.input.disabled = false
+        this.button.disabled = false
     }
 }

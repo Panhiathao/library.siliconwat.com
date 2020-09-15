@@ -69,6 +69,7 @@ export class HbAccountUsername extends HTMLElement {
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
+<<<<<<< HEAD
         this.input = this.querySelector("input");
         this.button = this.querySelector("button")
         this.newUsername = this.newUsername.bind(this.newUsername)
@@ -85,12 +86,65 @@ export class HbAccountUsername extends HTMLElement {
     disable() {
         this.input.disabled = true;
         this.button.disabled = true; 
+=======
+
+        this.newUsername = this.querySelector("input[name=newusername]")
+        this.password = this.querySelector("input[name=password]")
+        this.button = this.querySelector("button")
+
+        this.updateUsername = this.updateUsername.bind(this)
+    }
+
+    connectedCallback() {
+        const form = this.querySelector("form")
+        form.addEventListener("submit", this.updateUsername)
+    }
+
+    updateUsername(event) {
+        event.preventDefault()
+        this.disable()
+
+        const currentUser = window.firebase.auth().currentUser
+        const users = window.firebase.firestore().collection("users")
+        const usernameLowerCase = this.newUsername.value.toLowerCase()       
+        const p = this.querySelector("p")
+        p.textContent = ""
+
+        reauth(currentUser, this.password.value)
+            .then(() => users.where("username", "==", usernameLowerCase).get())
+            .then(results => {
+                if (results.empty) {
+                  return users.doc(currentUser.uid).update({
+                    username: usernameLowerCase
+                  })
+                  .then(() => this.dispatchEvent(new CustomEvent("success", {detail: {username: usernameLowerCase}})))
+                  //.catch(error => p.textContent = error.message) // this might not be needed
+                } else {
+                  p.textContent = "This username is not available."
+                }
+            })
+            .catch(error => p.textContent = error.message)
+            .finally(() => this.enable())
+    }
+
+    disable() {
+        this.dispatchEvent(new Event("submit"))
+        this.newUsername.disabled = true
+        this.password.disabled = true
+        this.button.disabled = true
+>>>>>>> 7a02e727aa675672bf5697e31b2710f93b6cc878
     }
 
     enable() {
         this.dispatchEvent(new Event("done"))
+<<<<<<< HEAD
         this.input.disabled = false;
         this.button.disabled = false;
+=======
+        this.newUsername.disabled = false
+        this.password.disabled = false
+        this.button.disabled = false
+>>>>>>> 7a02e727aa675672bf5697e31b2710f93b6cc878
     }
 }
 
