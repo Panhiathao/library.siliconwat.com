@@ -69,7 +69,6 @@ export class HbAccountUsername extends HTMLElement {
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
-<<<<<<< HEAD
         this.input = this.querySelector("input");
         this.button = this.querySelector("button")
         this.newUsername = this.newUsername.bind(this.newUsername)
@@ -86,65 +85,12 @@ export class HbAccountUsername extends HTMLElement {
     disable() {
         this.input.disabled = true;
         this.button.disabled = true; 
-=======
-
-        this.newUsername = this.querySelector("input[name=newusername]")
-        this.password = this.querySelector("input[name=password]")
-        this.button = this.querySelector("button")
-
-        this.updateUsername = this.updateUsername.bind(this)
-    }
-
-    connectedCallback() {
-        const form = this.querySelector("form")
-        form.addEventListener("submit", this.updateUsername)
-    }
-
-    updateUsername(event) {
-        event.preventDefault()
-        this.disable()
-
-        const currentUser = window.firebase.auth().currentUser
-        const users = window.firebase.firestore().collection("users")
-        const usernameLowerCase = this.newUsername.value.toLowerCase()       
-        const p = this.querySelector("p")
-        p.textContent = ""
-
-        reauth(currentUser, this.password.value)
-            .then(() => users.where("username", "==", usernameLowerCase).get())
-            .then(results => {
-                if (results.empty) {
-                  return users.doc(currentUser.uid).update({
-                    username: usernameLowerCase
-                  })
-                  .then(() => this.dispatchEvent(new CustomEvent("success", {detail: {username: usernameLowerCase}})))
-                  //.catch(error => p.textContent = error.message) // this might not be needed
-                } else {
-                  p.textContent = "This username is not available."
-                }
-            })
-            .catch(error => p.textContent = error.message)
-            .finally(() => this.enable())
-    }
-
-    disable() {
-        this.dispatchEvent(new Event("submit"))
-        this.newUsername.disabled = true
-        this.password.disabled = true
-        this.button.disabled = true
->>>>>>> 7a02e727aa675672bf5697e31b2710f93b6cc878
     }
 
     enable() {
         this.dispatchEvent(new Event("done"))
-<<<<<<< HEAD
         this.input.disabled = false;
         this.button.disabled = false;
-=======
-        this.newUsername.disabled = false
-        this.password.disabled = false
-        this.button.disabled = false
->>>>>>> 7a02e727aa675672bf5697e31b2710f93b6cc878
     }
 }
 
@@ -153,7 +99,6 @@ export class HbAccountEmail extends HTMLElement {
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
-<<<<<<< HEAD
         this.newEmail = document.querySelector("input[name=newpassword]")
         this.newpassword = document.querySelector("input[name=password]")
         this.button = document.querySelector("button")
@@ -168,54 +113,13 @@ export class HbAccountEmail extends HTMLElement {
         this.newEmail.disabled = true;
         this.newpassword.disabled = true;
         this.button.disabled = true;
-=======
-
-        this.newEmail = this.querySelector("input[name=newemail]")
-        this.password = this.querySelector("input[name=password]")
-        this.button = this.querySelector("button")
-
-        this.updateEmail = this.updateEmail.bind(this)
-    }
-
-    connectedCallback() {
-        const form = this.querySelector("form")
-        form.addEventListener("submit", this.updateEmail)
-    }
-
-    updateEmail(event) {
-        event.preventDefault()
-        this.disable()
-        
-        const currentUser = window.firebase.auth().currentUser
-        const p = this.querySelector("p")
-        p.textContent = ""
-
-        reauth(currentUser, this.password.value)
-            .then(() => currentUser.updateEmail(this.newEmail.value))
-            .then(() => this.dispatchEvent(new Event("success")))
-            .catch(error => p.textContent = error.message)
-            .finally(() => this.enable())
-    }
-
-    disable() {
-        this.dispatchEvent(new Event("submit"))
-        this.newEmail.disabled = true
-        this.password.disabled = true
-        this.button.disabled = true
->>>>>>> 33734d3d7071d46796a908a5e9cf58e2732d4fc7
     }
 
     enable() {
         this.dispatchEvent(new Event("done"))
-<<<<<<< HEAD
         this.newEmail.disabled = false;
         this.newpassword.disabled = false;
         this.button.disabled = false;
-=======
-        this.newEmail.disabled = false
-        this.password.disabled = false
-        this.button.disabled = false
->>>>>>> 33734d3d7071d46796a908a5e9cf58e2732d4fc7
     }
 }
 
@@ -224,23 +128,13 @@ export class HbAccountPassword extends HTMLElement {
         super();
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true))
-<<<<<<< HEAD
         this.newEmail = document.querySelector("input[name=newpassword]")
         this.newpassword = document.querySelector("input[name=password]")
         this.button = document.querySelector("button")
-=======
-
-        this.newPassword = this.querySelector("input[name=newpassword]")
-        this.password = this.querySelector("input[name=password]")
-        this.button = this.querySelector("button")
-
-        this.updatePassword = this.updatePassword.bind(this)
->>>>>>> 33734d3d7071d46796a908a5e9cf58e2732d4fc7
     }
 
     connectedCallback() {
         const form = this.querySelector("form")
-<<<<<<< HEAD
         form.addEventListener("submit")
     }
 
@@ -249,44 +143,13 @@ export class HbAccountPassword extends HTMLElement {
         this.newEmail.disabled = true;
         this.newpassword.disabled = true;
         this.button.disabled = true;
-=======
-        form.addEventListener("submit", this.updatePassword)
-    }
-
-    updatePassword(event) {
-        event.preventDefault()
-        this.disable()
-
-        const currentUser = window.firebase.auth().currentUser
-        const p = this.querySelector("p")
-        p.textContent = ""
-
-        reauth(currentUser, this.password.value)
-            .then(() => currentUser.updatePassword(this.newPassword.value))
-            .then(() => this.dispatchEvent(new Event("success")))
-            .catch(error => p.textContent = error.message)
-            .finally(() => this.enable())
-    }
-
-    disable() {
-        this.dispatchEvent(new Event("submit"))
-        this.newPassword.disabled = true
-        this.password.disabled = true
-        this.button.disabled = true
->>>>>>> 33734d3d7071d46796a908a5e9cf58e2732d4fc7
     }
 
     enable() {
         this.dispatchEvent(new Event("done"))
-<<<<<<< HEAD
         this.newEmail.disabled = false;
         this.newpassword.disabled = false;
         this.button.disabled = false;
-=======
-        this.newPassword.disabled = false
-        this.password.disabled = false
-        this.button.disabled = false
->>>>>>> 33734d3d7071d46796a908a5e9cf58e2732d4fc7
     }
 }
 
