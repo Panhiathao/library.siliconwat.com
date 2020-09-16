@@ -21,12 +21,26 @@ export class HbAvatar extends HTMLElement{
         this.updateAvatar = this.updateAvatar.bind(this)
         this.deleteAvatar = this.deleteAvatar.bind(this)
 
+        this.users = window.firebase.firestore().collection("users")
         this.firestorage = window.firebase.storage()
     }
 
     connectedCallback() {
         this.input.addEventListener("change", this.updateAvatar)
         this.button.addEventListener("click", this.deleteAvatar)
+
+        window.firebase.auth().onAuthStateChanged(user => {
+            if(user) {                 
+              this.users.doc(user.uid).get()
+              .then(doc => {
+                const userData = doc.data()
+                const span = this.querySelector("span")
+                span.textContent = userData.username ? userData.username : "No username"
+                this.img.src = userData.avatarURL ? userData.avatarURL : ""
+              })
+              .catch(error => console.error(error.message))
+          }
+        })
     }
 
     updateAvatar(event) {
@@ -47,7 +61,7 @@ export class HbAvatar extends HTMLElement{
                 this.dispatchEvent(new CustomEvent("success", {detail: {type: "update", url}}))
                 return this.img.src = url
             })
-            .then(url => window.firebase.firestore().collection("users").doc(currentUser.uid).update({avatarURL: url}))
+            .then(url => this.users.doc(currentUser.uid).update({avatarURL: url}))
             .catch(error => this.p.textContent = error.message)
             .finally(() => this.enable())
        )

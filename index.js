@@ -67,6 +67,9 @@ customElements.define("sw-timer", SwTimer)
 import {HbLogout} from "./components/hb-logout.mjs"
 customElements.define("hb-logout", HbLogout)
 
+import {HbCheckout} from "./components/hb-checkout.mjs"
+customElements.define("hb-checkout", HbCheckout)
+
 //////
 
 firebase.auth().onAuthStateChanged(user => {
