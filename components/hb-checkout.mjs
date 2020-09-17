@@ -14,6 +14,7 @@ export class HbCheckout extends HTMLElement{
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
+        this.button = this.querySelector("button")
         this.checkout = this.checkout.bind(this)
     }
 
@@ -28,7 +29,8 @@ export class HbCheckout extends HTMLElement{
 
     checkout(event) {
         event.preventDefault()
-        const stripe = Stripe(this.getAttribute("stripe-pk-live"))
+        this.disable()
+        const stripe = Stripe(this.getAttribute("stripe-pk"))
 
         stripe.redirectToCheckout({
             lineItems: [{price: this.getAttribute("stripe-api-id"), quantity: 1}],
@@ -38,12 +40,23 @@ export class HbCheckout extends HTMLElement{
             // a successful payment.
             // Instead use one of the strategies described in
             // https://stripe.com/docs/payments/checkout/fulfillment
-            successUrl: 'https://siliconwat.com/success',
-            cancelUrl: 'https://siliconwat.com/canceled',
+            successUrl: this.getAttribute("stripe-success-url"),
+            cancelUrl: this.getAttribute("stripe-cancel-url"),
           })
           .then(result => { 
-            const p = this.querySelector("p")
-            if (result.error) p.textContent = result.error.message 
+            this.dispatchEvent(new Event("success"))
+            if (result.error) this.querySelector("p").textContent = result.error.message 
         })
+        .then(() => this.enable())
+    }
+
+    disable() {
+        this.dispatchEvent(new Event("submit"))
+        this.button.disabled = true
+    }
+
+    enable() {
+        this.dispatchEvent(new Event("done"))
+        this.button.disabled = false
     }
 }
